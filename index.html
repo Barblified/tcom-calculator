@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 <head>
@@ -6,8 +5,9 @@
   <title>Total Cost of Ministry Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+/* results box (keep, but switch to white) */
 #results {
-  background-color: #f8ce3b;
+  background-color: #ffffff; /* CHANGED from #f8ce3b */
   border: 2px solid #0d3b66;
   padding: 1em;
   margin-top: 1em;
@@ -23,8 +23,8 @@
       font-family: 'Cabin', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #faf0c9;
-      background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%23b31f29" opacity="0.02"/></svg>');
+      background-color: #ffffff;   /* CHANGED from #faf0c9 */
+      background-image: none;      /* CHANGED: remove pattern */
     }
 
     #tcom-calculator {
@@ -73,9 +73,10 @@
       background-color: #a11c25;
     }
 
+    /* second #results rule — also force white to avoid cream override */
     #results {
       margin-top: 1.5rem;
-      background-color: #faf0c9;
+      background-color: #ffffff; /* CHANGED from #faf0c9 */
       padding: 1rem;
       border-radius: 4px;
       color: #0d3b66;
@@ -126,8 +127,8 @@
     </form>
 
     <div id="results">
-      <p><strong>DCOM:</strong> £<span id="dcomResult">0.00</span></p>
-      <p><strong>TCOM:</strong> £<span id="tcomResult">0.00</span></p>
+      <p><strong>DCOM:</strong> £<span id="dcomResult">0</span></p>   <!-- CHANGED default -->
+      <p><strong>TCOM:</strong> £<span id="tcomResult">0</span></p>   <!-- CHANGED default -->
     </div>
 
     <div id="glossary">
@@ -154,8 +155,9 @@
       const mu = ft + pt + hd;
       const tcom = dcom + (mu * costBase.pooledPerMU);
 
-      document.getElementById('dcomResult').textContent = dcom.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      document.getElementById('tcomResult').textContent = tcom.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      // CHANGED: whole pounds, no decimals (rounded)
+      document.getElementById('dcomResult').textContent = Math.round(dcom).toLocaleString('en-GB');
+      document.getElementById('tcomResult').textContent = Math.round(tcom).toLocaleString('en-GB');
     }
   </script>
 </body>
