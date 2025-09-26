@@ -5,41 +5,45 @@
   <title>Total Cost of Ministry Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-/* results box (keep, but switch to white) */
-#results {
-  background-color: #ffffff; /* CHANGED from #f8ce3b */
-  border: 2px solid #0d3b66;
-  padding: 1em;
-  margin-top: 1em;
-  border-radius: 8px;
-  color: #0d3b66;
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
     @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Cabin', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;   /* CHANGED from #faf0c9 */
-      background-image: none;      /* CHANGED: remove pattern */
+      background-color: #ffffff;
+      background-image: none;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 0;
     }
 
     #tcom-calculator {
+      width: 100%;
       max-width: 600px;
-      margin: 2rem auto;
       padding: 1.5rem;
       background-color: #ffffff;
       border: 2px solid #b31f29;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 0 1rem;
     }
 
     h2 {
       color: #0d3b66;
       text-align: center;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
     }
 
     label {
@@ -73,24 +77,47 @@
       background-color: #a11c25;
     }
 
-    /* second #results rule — also force white to avoid cream override */
     #results {
-      margin-top: 1.5rem;
-      background-color: #ffffff; /* CHANGED from #faf0c9 */
+      background-color: #ffffff;
+      border: 2px solid #0d3b66;
       padding: 1rem;
-      border-radius: 4px;
+      margin-top: 1.5rem;
+      border-radius: 8px;
       color: #0d3b66;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    #results p {
+      margin: 0.5rem 0;
     }
 
     #glossary {
       margin-top: 2rem;
+      margin-bottom: 0;
       font-size: 0.9rem;
       color: #0d3b66;
     }
 
+    #glossary h3 {
+      margin-bottom: 1rem;
+    }
+
+    #glossary p {
+      margin-bottom: 0.75rem;
+    }
+
+    #glossary p:last-child {
+      margin-bottom: 0;
+    }
+
     @media (max-width: 600px) {
+      body {
+        padding: 0.5rem 0;
+      }
+
       #tcom-calculator {
-        margin: 1rem;
+        margin: 0 0.5rem;
         padding: 1rem;
       }
 
@@ -127,8 +154,8 @@
     </form>
 
     <div id="results">
-      <p><strong>DCOM:</strong> £<span id="dcomResult">0</span></p>   <!-- CHANGED default -->
-      <p><strong>TCOM:</strong> £<span id="tcomResult">0</span></p>   <!-- CHANGED default -->
+      <p><strong>DCOM:</strong> £<span id="dcomResult">0</span></p>
+      <p><strong>TCOM:</strong> £<span id="tcomResult">0</span></p>
     </div>
 
     <div id="glossary">
@@ -155,7 +182,6 @@
       const mu = ft + pt + hd;
       const tcom = dcom + (mu * costBase.pooledPerMU);
 
-      // CHANGED: whole pounds, no decimals (rounded)
       document.getElementById('dcomResult').textContent = Math.round(dcom).toLocaleString('en-GB');
       document.getElementById('tcomResult').textContent = Math.round(tcom).toLocaleString('en-GB');
     }
