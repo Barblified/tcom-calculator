@@ -219,5 +219,19 @@
       document.getElementById('tcomResult').textContent = Math.round(tcom).toLocaleString('en-GB');
     }
   </script>
+  <script>
+// Auto-resize to content
+document.addEventListener('DOMContentLoaded', function() {
+  const calc = document.getElementById('tcom-calculator');
+  const totalHeight = calc.offsetHeight + 20; // 20px buffer
+  document.body.style.height = totalHeight + 'px';
+  document.documentElement.style.height = totalHeight + 'px';
+  
+  // If in iframe, tell parent to resize
+  if (window.parent !== window) {
+    window.parent.postMessage({height: totalHeight}, '*');
+  }
+});
+</script>
 </body>
 </html>
