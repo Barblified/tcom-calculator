@@ -20,11 +20,12 @@
       font-family: 'Cabin', sans-serif;
       background-color: #ffffff;
       background-image: none;
+      font-size: 0.85rem;
     }
 
     #tcom-calculator {
       width: 100%;
-      max-width: 380px;
+      max-width: 700px;
       padding: 1rem;
       background-color: #ffffff;
       border: 2px solid #b31f29;
@@ -37,13 +38,23 @@
       color: #0d3b66;
       text-align: center;
       margin-top: 0;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       font-size: 1.1rem;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .input-group {
+      flex: 1;
     }
 
     label {
       display: block;
-      margin-top: 0.75rem;
+      margin-bottom: 0.25rem;
       color: #0d3b66;
       font-size: 0.8rem;
     }
@@ -51,14 +62,13 @@
     input[type="number"] {
       width: 100%;
       padding: 0.4rem;
-      margin-top: 0.2rem;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 0.8rem;
     }
 
     button {
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       padding: 0.6rem;
       width: 100%;
       background-color: #b31f29;
@@ -77,31 +87,34 @@
       background-color: #ffffff;
       border: 2px solid #0d3b66;
       padding: 0.75rem;
-      margin-top: 1rem;
+      margin-top: 0.75rem;
       border-radius: 6px;
       color: #0d3b66;
       font-weight: bold;
       font-size: 0.9rem;
+      display: flex;
+      justify-content: space-around;
     }
 
     #results p {
-      margin: 0.4rem 0;
+      margin: 0;
     }
 
     #glossary {
-      margin-top: 1.5rem;
+      margin-top: 1rem;
       margin-bottom: 0;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: #0d3b66;
     }
 
     #glossary h3 {
-      margin-bottom: 0.75rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
       font-size: 0.85rem;
     }
 
     #glossary p {
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
       line-height: 1.3;
     }
 
@@ -119,17 +132,28 @@
         padding: 0.75rem;
       }
 
+      .input-row {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
       h2 {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
 
       button {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
+      }
+
+      #results {
+        flex-direction: column;
+        gap: 0.3rem;
       }
     }
   </style>
 
-<!--[if gte mso 9]><xml><mso:CustomDocumentProperties>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
 <mso:Year msdt:dt="string">2025</mso:Year>
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
@@ -138,14 +162,20 @@
   <div id="tcom-calculator">
     <h2>Total Cost of Ministry Calculator</h2>
     <form>
-      <label for="fullTime">Full-time clergy:</label>
-      <input type="number" id="fullTime" min="0" value="0">
-
-      <label for="partTime">Part-time clergy:</label>
-      <input type="number" id="partTime" min="0" value="0">
-
-      <label for="houseDuty">House-for-duty clergy:</label>
-      <input type="number" id="houseDuty" min="0" value="0">
+      <div class="input-row">
+        <div class="input-group">
+          <label for="fullTime">Full-time clergy:</label>
+          <input type="number" id="fullTime" min="0" value="0">
+        </div>
+        <div class="input-group">
+          <label for="partTime">Part-time clergy:</label>
+          <input type="number" id="partTime" min="0" value="0">
+        </div>
+        <div class="input-group">
+          <label for="houseDuty">House-for-duty clergy:</label>
+          <input type="number" id="houseDuty" min="0" value="0">
+        </div>
+      </div>
 
       <button type="button" onclick="calculateTCOM()">Calculate TCOM</button>
     </form>
@@ -167,7 +197,7 @@
       fullTime: 57769.852,
       partTime: 35657.077,
       houseDuty: 13544.302,
-      pooledPerMU: 18951.00
+      pooledPerMU: 16989.082
     };
 
     function calculateTCOM() {
