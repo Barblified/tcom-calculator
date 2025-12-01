@@ -191,4 +191,33 @@
 
     <div id="glossary">
       <h3>Glossary</h3>
-      <p><strong>DCOM</strong>: Direct Cost of Ministry – includes stipend, pension, housing, and training
+      <p><strong>DCOM</strong>: Direct Cost of Ministry – includes stipend, pension, housing, and training costs for clergy.</p>
+      <p><strong>TCOM</strong>: Total Cost of Ministry – includes DCOM plus pooled costs such as safeguarding, education, and diocesan support (applied once per Ministry Unit).</p>
+    </div>
+  </div>
+
+  <script>
+    const costBase = {
+      fullTime: 57769.852,
+      partTime: 35657.077,
+      houseDuty: 13544.302,
+      pooledPerMU: 18951
+    };
+
+    function calculateTCOM() {
+      const ft = parseInt(document.getElementById('fullTime').value) || 0;
+      const pt = parseInt(document.getElementById('partTime').value) || 0;
+      const hd = parseInt(document.getElementById('houseDuty').value) || 0;
+
+      const dcom = (ft * costBase.fullTime) + (pt * costBase.partTime) + (hd * costBase.houseDuty);
+      const totalClergy = ft + pt + hd;
+      
+      // Apply pooled costs once per Ministry Unit (not per clergy member)
+      const tcom = totalClergy > 0 ? dcom + costBase.pooledPerMU : 0;
+
+      document.getElementById('dcomResult').textContent = Math.round(dcom).toLocaleString('en-GB');
+      document.getElementById('tcomResult').textContent = Math.round(tcom).toLocaleString('en-GB');
+    }
+  </script>
+</body>
+</html>
