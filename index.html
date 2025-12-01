@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" style="height: fit-content !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important;">
 <head>
   <meta charset="UTF-8">
   <title>Total Cost of Ministry Calculator</title>
@@ -9,12 +9,16 @@
 
     * {
       box-sizing: border-box;
-    }
-
-    html, body {
       margin: 0;
       padding: 0;
-      height: auto;
+    }
+
+    html {
+      height: fit-content !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
     }
 
     body {
@@ -22,6 +26,11 @@
       background-color: #ffffff;
       background-image: none;
       font-size: 0.85rem;
+      height: fit-content !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
     }
 
     #tcom-calculator {
@@ -32,30 +41,31 @@
       border: 2px solid #b31f29;
       border-radius: 6px;
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      margin: 0 auto;
+      margin: 0 auto !important;
     }
 
     h2 {
       color: #0d3b66;
       text-align: center;
-      margin-top: 0;
-      margin-bottom: 0.75rem;
+      margin: 0 0 0.75rem 0;
       font-size: 1.1rem;
     }
 
     .input-row {
       display: flex;
       gap: 1rem;
-      margin-bottom: 0.75rem;
+      margin: 0 0 0.75rem 0;
     }
 
     .input-group {
       flex: 1;
+      margin: 0;
+      padding: 0;
     }
 
     label {
       display: block;
-      margin-bottom: 0.25rem;
+      margin: 0 0 0.25rem 0;
       color: #0d3b66;
       font-size: 0.8rem;
     }
@@ -63,13 +73,14 @@
     input[type="number"] {
       width: 100%;
       padding: 0.4rem;
+      margin: 0;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 0.8rem;
     }
 
     button {
-      margin-top: 0.5rem;
+      margin: 0.5rem 0 0 0;
       padding: 0.6rem;
       width: 100%;
       background-color: #b31f29;
@@ -88,7 +99,7 @@
       background-color: #ffffff;
       border: 2px solid #0d3b66;
       padding: 0.75rem;
-      margin-top: 0.75rem;
+      margin: 0.75rem 0 0 0;
       border-radius: 6px;
       color: #0d3b66;
       font-weight: bold;
@@ -102,37 +113,28 @@
     }
 
     #glossary {
-      margin-top: 0.75rem;
-      margin-bottom: 0;
-      padding-bottom: 0;
+      margin: 0.75rem 0 0 0;
+      padding: 0;
       font-size: 0.7rem;
       color: #0d3b66;
     }
 
     #glossary h3 {
-      margin-top: 0;
-      margin-bottom: 0.4rem;
+      margin: 0 0 0.4rem 0;
       font-size: 0.85rem;
     }
 
     #glossary p {
-      margin-top: 0;
-      margin-bottom: 0.3rem;
+      margin: 0 0 0.3rem 0;
       line-height: 1.3;
     }
 
     #glossary p:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
+      margin: 0;
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 0.5rem 0;
-      }
-
       #tcom-calculator {
-        margin: 0 auto;
         padding: 0.75rem;
       }
 
@@ -201,7 +203,7 @@
       fullTime: 57769.852,
       partTime: 35657.077,
       houseDuty: 13544.302,
-      pooledPerMU: 18951
+      pooledPerMU: 18951.00
     };
 
     function calculateTCOM() {
@@ -218,20 +220,22 @@
       document.getElementById('dcomResult').textContent = Math.round(dcom).toLocaleString('en-GB');
       document.getElementById('tcomResult').textContent = Math.round(tcom).toLocaleString('en-GB');
     }
+
+    // Auto-fit height and notify parent frame
+    window.addEventListener('load', function() {
+      const calc = document.getElementById('tcom-calculator');
+      const height = calc.offsetHeight + 32; // 2rem padding total
+      document.body.style.height = height + 'px';
+      document.documentElement.style.height = height + 'px';
+      
+      // Signal to parent iframe
+      if (window.parent !== window) {
+        window.parent.postMessage({
+          type: 'resize',
+          height: height
+        }, '*');
+      }
+    });
   </script>
-  <script>
-// Auto-resize to content
-document.addEventListener('DOMContentLoaded', function() {
-  const calc = document.getElementById('tcom-calculator');
-  const totalHeight = calc.offsetHeight + 20; // 20px buffer
-  document.body.style.height = totalHeight + 'px';
-  document.documentElement.style.height = totalHeight + 'px';
-  
-  // If in iframe, tell parent to resize
-  if (window.parent !== window) {
-    window.parent.postMessage({height: totalHeight}, '*');
-  }
-});
-</script>
 </body>
 </html>
